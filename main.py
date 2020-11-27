@@ -1,3 +1,6 @@
+import comm
+
+"""
 import sys
 import glob
 import serial
@@ -39,13 +42,12 @@ def loadConfig():
     baud = cfg_data["BAUD"]
     cfg_file.close()
     return port, baud
-    
+"""    
 
 def Main():
     
     try:
-        print("\nTentando recuperar configurações salvas...\n")
-        port, baud = loadConfig()
+        port, baud = comm.loadConfig()
         sp = serial.Serial(port = port,
                            baudrate = baud,
                            parity = serial.PARITY_NONE,
@@ -53,9 +55,7 @@ def Main():
 		                   bytesize = serial.EIGHTBITS,
 		                   timeout = 1)
     except:
-        print("Não há configurações salvas.")    
-        
-        s_port = serial_ports()
+        s_port = comm.listPorts()
         baudrate = [2400, 4800, 9600, 19200, 38400, 57600, 115200]
         
         if len(s_port) > 0:
